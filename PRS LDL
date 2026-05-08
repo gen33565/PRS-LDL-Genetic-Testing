@@ -1,0 +1,362 @@
+TURN ON ANYCONNECT (VPN) AND MERGE FILES IN TERMINAL
+ssh nicolv@sockeye.arc.ubc.ca
+module load miniconda3
+conda activate vcf_merge
+bgzip
+ls
+parallel tabix -p vcf ::: *.vcf.gz
+ls *.vcf.gz|wc -l
+ls *.vcf.gz.tbi|wc -l
+bcftools merge -o 240226final_merged.vcf.gz -O z *.vcf.gz
+ls
+
+IF IT DOESNT WORK BC OF DUPLICATES OR SOMETHING: 
+rm feb24_merged.vcf.gz --> this deletes the file from globus so you can restart
+bcftools merge --force-samples -Oz -o feb24_merged.vcf.gz *.vcf.gz
+ls
+CHECK THE FILE
+ls -lh 240226_merged.vcf.gz
+zless 240226_merged.vcf.gz | head
+
+
+DOWNLOAD MERGED FILE FROM GLOBUS AND DO THIS IN R
+install.packages('vcfR')
+install.packages("magrittr")
+install.packages("dplyr")
+install.packages("tidyr")
+install.packages("stringi")
+install.packages("stringr")
+install.packages("ggplot2")
+install.packages("data.table")
+
+library(vcfR)
+library(magrittr)
+library(dplyr)
+library(tidyr)
+library(stringi)
+library(stringr)
+library(ggplot2)
+library(data.table)
+
+setwd("/Users/nicolevaizman/Desktop/PRS")
+
+rs10401969 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs10401969.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs10401969)
+
+rs11065987 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs11065987.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs11065987)
+
+rs1250229 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs1250229.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs1250229)
+
+rs12670798 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs12670798.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs12670798)
+
+rs12916 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs12916.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs12916)
+
+rs1367117 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs1367117.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs1367117)
+
+rs1564348 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs1564348.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs1564348)
+
+rs17404153 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs17404153.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs17404153)
+
+rs1801689 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs1801689.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs1801689)
+
+rs2000999 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs2000999.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs2000999)
+
+rs2072183 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs2072183.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs2072183)
+
+rs2479409 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs2479409.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs2479409)
+
+rs267733 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs267733.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs267733)
+
+rs364585 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs364585.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs364585)
+
+rs3757354 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs3757354.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs3757354)
+
+rs3764261 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs3764261.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs3764261)
+
+rs4299376 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs4299376.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs4299376)
+
+rs4530754 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs4530754.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs4530754)
+
+rs4722551 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs4722551.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs4722551)
+
+rs4942486 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs4942486.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs4942486)
+
+rs5763662 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs5763662.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs5763662)
+
+rs629301 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs629301.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs629301)
+
+rs6511720 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs6511720.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs6511720)
+
+rs6882076 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs6882076.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs6882076)
+
+rs7206971 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs7206971.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs7206971)
+
+rs9488822 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs9488822.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs9488822)
+
+rs964184 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs964184.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs964184)
+
+rs9987289 <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample_rs9987289.csv') %>% rename(Indiv = 'Sample (Male/Female/Unknown)') %>% dplyr::select(Indiv, rs9987289)
+
+
+k1g <- left_join(rs10401969, rs11065987, by = 'Indiv') %>%
+  left_join(rs1250229, by = 'Indiv') %>%
+  left_join(rs12670798, by = 'Indiv') %>%
+  left_join(rs12916, by = 'Indiv') %>%
+  left_join(rs1367117, by = 'Indiv') %>%
+  left_join(rs1564348, by = 'Indiv') %>%
+  left_join(rs17404153, by = 'Indiv') %>%
+  left_join(rs1801689, by = 'Indiv') %>%
+  left_join(rs2000999, by = 'Indiv') %>%
+  left_join(rs2072183, by = 'Indiv') %>%
+  left_join(rs2479409, by = 'Indiv') %>%
+  left_join(rs267733, by = 'Indiv') %>%
+  left_join(rs364585, by = 'Indiv') %>%
+  left_join(rs3757354, by = 'Indiv') %>%
+  left_join(rs3764261, by = 'Indiv') %>%
+  left_join(rs4299376, by = 'Indiv') %>%
+  left_join(rs4530754, by = 'Indiv') %>%
+  left_join(rs4722551, by = 'Indiv') %>%
+  left_join(rs4942486, by = 'Indiv') %>%
+  left_join(rs5763662, by = 'Indiv') %>%
+  left_join(rs629301, by = 'Indiv') %>%
+  left_join(rs6511720, by = 'Indiv') %>%
+  left_join(rs6882076, by = 'Indiv') %>%
+  left_join(rs7206971, by = 'Indiv') %>%
+  left_join(rs9488822, by = 'Indiv') %>%
+  left_join(rs964184, by = 'Indiv') %>%
+  left_join(rs9987289, by = 'Indiv') 
+
+
+vcf <- read.vcfR("240226final_merged.vcf.gz")
+vcf.tidy <- vcfR2tidy(vcf) 
+head(vcf.tidy)
+
+variants <- vcf.tidy$fix %>%  
+  as.data.frame()  %>%
+  filter(!is.na(ID)) %>%
+  filter(ID == "rs629301" |
+           ID == "rs6511720" |
+           ID == "rs1367117" |
+           ID == "rs10401969" |
+           ID == "rs1801689" |
+           ID == "rs964184" |
+           ID == "rs4299376" |
+           ID == "rs5763662" |
+           ID == "rs12916" |
+           ID == "rs9987289" |
+           ID == "rs2000999" |
+           ID == "rs2479409" |
+           ID == "rs3764261" |
+           ID == "rs1564348" |
+           ID == "rs6882076" |
+           ID == "rs4722551" |
+           ID == "rs2072183" |
+           ID == "rs3757354" |
+           ID == "rs17404153" |
+           ID == "rs12670798" |
+           ID == "rs267733" |
+           ID == "rs9488822" |
+           ID == "rs7206971" |
+           ID == "rs4530754" |
+           ID == "rs11065987" |
+           ID == "rs364585" |
+           ID == "rs1250229" |
+           ID == "rs4942486") %>%
+  mutate(id = paste(ChromKey, POS, sep = ":")) %>%
+  dplyr::select(id, CHROM, ID, REF, ALT)
+
+write.csv(variants, "variants.csv", row.names = FALSE)
+
+variant.wide <- vcf.tidy$gt %>%  
+  as.data.frame()  %>%
+  filter((POS == 55504650 & ChromKey == 1) | #rs2479409
+           (POS == 109818306 & ChromKey == 1) | #rs629301
+           (POS == 150958836 & ChromKey == 1) | #rs267733
+           (POS == 21263900 & ChromKey == 12) | #rs1367117
+           (POS == 44072576 & ChromKey == 12) | #rs4299376
+           (POS == 216304384 & ChromKey == 12) | #rs1250229
+           (POS == 132163200 & ChromKey == 15) | #rs17404153
+           (POS == 74656539 & ChromKey == 17) | #rs12916
+           (POS == 122855416 & ChromKey == 17) | #rs4530754
+           (POS == 156390297 & ChromKey == 17) | #rs6882076
+           (POS == 16127407 & ChromKey == 18) | #rs3757354
+           (POS == 116312893 & ChromKey == 18) | #rs9488822
+           (POS == 160578860 & ChromKey == 18) | #rs1564348
+           (POS == 21607352 & ChromKey == 19) | #rs12670798
+           (POS == 25991826 & ChromKey == 19) | #rs4722551
+           (POS == 44579180 & ChromKey == 19) | #rs2072183
+           (POS == 9183358 & ChromKey == 20) | #rs9987289
+           (POS == 116648917 & ChromKey == 3) | #rs964184
+           (POS == 112072424 & ChromKey == 4) | #rs11065987
+           (POS == 32953388 & ChromKey == 5) | #rs4942486
+           (POS == 56993324 & ChromKey == 8) | #rs3764261
+           (POS == 72108093 & ChromKey == 8) | #rs2000999
+           (POS == 45425115 & ChromKey == 9) | #rs7206971
+           (POS == 64210580 & ChromKey == 9) | #rs1801689
+           (POS == 11202306 & ChromKey == 11) | #rs6511720
+           (POS == 19407718 & ChromKey == 11) | #rs10401969
+           (POS == 12962718 & ChromKey == 13) | #rs364585
+           (POS == 30378703 & ChromKey == 14)) %>% #rs576366
+  mutate(id = paste(ChromKey, POS, sep = ":")) %>%
+  # quality control
+  filter(gt_GQ > 10 & gt_DP > 10) %>%
+  left_join(variants, by = "id") %>%
+  dplyr::select(Indiv, ID, gt_GT_alleles) %>%
+  spread(ID, gt_GT_alleles) 
+
+head(variant.wide)
+
+variant.wide <- rbind(variant.wide, k1g)
+
+variant.wide$na_count <- apply(variant.wide, 1, function(x) sum(is.na(x)))
+variant.wide[variant.wide == "."] <- NA
+
+variant.wide <- variant.wide %>%
+  mutate(rs6511720_G = case_when(rs6511720 == "G/G" | is.na(rs6511720) ~ 2,
+                                 rs6511720 == "G/T" | rs6511720 == "T/G" ~ 1,
+                                 rs6511720 == "T/T" ~ 0)) %>%
+  mutate(rs629301_T = case_when(rs629301 == "T/T" | is.na(rs629301) ~ 2,
+                                rs629301 == "G/T" | rs629301 == "T/G" ~ 1,
+                                rs629301 == "G/G" ~ 0)) %>%
+  mutate(rs1367117_A = case_when(rs1367117 == "A/A" ~ 2,
+                                 rs1367117 == "A/G" | rs1367117 == "G/A" | is.na(rs1367117) ~ 1,
+                                 rs1367117 == "G/G" ~ 0)) %>%
+  mutate(rs10401969_T = case_when(rs10401969 == "T/T" | is.na(rs10401969) ~ 2,
+                                  rs10401969 == "T/C" | rs10401969 == "C/T" ~ 1,
+                                  rs10401969 == "C/C" ~ 0)) %>%
+  mutate(rs1801689_C = case_when(rs1801689 == "C/C" ~ 2,
+                                 rs1801689 == "C/A" | rs1801689 == "A/C" ~ 1,
+                                 rs1801689 == "A/A" | is.na(rs1801689) ~ 0)) %>%
+  mutate(rs964184_G = case_when(rs964184 == "G/G" ~ 2,
+                                rs964184 == "C/G" | rs964184 == "G/C" ~ 1,
+                                rs964184 == "C/C" | is.na(rs964184) ~ 0)) %>%
+  mutate(rs4299376_G = case_when(rs4299376 == "G/G" ~ 2,
+                                 rs4299376 == "T/G" | rs4299376 == "G/T" ~ 1,
+                                 rs4299376 == "T/T" | is.na(rs4299376) ~ 0)) %>%
+  mutate(rs5763662_T = case_when(rs5763662 == "T/T" ~ 2,
+                                 rs5763662 == "T/C" | rs5763662 == "C/T" ~ 1,
+                                 rs5763662 == "C/C" | is.na(rs5763662) ~ 0)) %>%
+  mutate(rs12916_C = case_when(rs12916 == "C/C" ~ 2,
+                               rs12916 == "T/C" | rs12916 == "C/T" ~ 1,
+                               rs12916 == "T/T" | is.na(rs12916) ~ 0)) %>%
+  mutate(rs9987289_G = case_when(rs9987289 == "G/G" | is.na(rs9987289) ~ 2,
+                                 rs9987289 == "G/A" | rs9987289 == "A/G" ~ 1,
+                                 rs9987289 == "A/A" ~ 0)) %>%
+  mutate(rs2000999_A = case_when(rs2000999 == "A/A" ~ 2,
+                                 rs2000999 == "G/A" | rs2000999 == "A/G" ~ 1,
+                                 rs2000999 == "G/G" | is.na(rs2000999) ~ 0)) %>%
+  mutate(rs2479409_G = case_when(rs2000999 == "G/G" ~ 2,
+                                 rs2000999 == "G/A" | rs2000999 == "A/G" ~ 1,
+                                 rs2000999 == "A/A" | is.na(rs2000999) ~ 0)) %>%
+  mutate(rs3764261_C = case_when(rs3764261 == "C/C" ~ 2,
+                                 rs3764261 == "C/A" | rs3764261 == "A/C" | is.na(rs3764261) ~ 1,
+                                 rs3764261 == "A/A" ~ 0)) %>%
+  mutate(rs1564348_C = case_when(rs1564348 == "C/C" ~ 2,
+                                 rs1564348 == "C/T" | rs1564348 == "T/C" ~ 1,
+                                 rs1564348 == "T/T" | is.na(rs1564348) ~ 0)) %>%
+  mutate(rs6882076_C = case_when(rs6882076 == "C/C" ~ 2,
+                                 rs6882076 == "C/T" | rs6882076 == "T/C"| is.na(rs6882076) ~ 1,
+                                 rs6882076 == "T/T" ~ 0)) %>%
+  mutate(rs4722551_C = case_when(rs4722551 == "C/C" ~ 2,
+                                 rs4722551 == "C/T" | rs4722551 == "T/C" ~ 1,
+                                 rs4722551 == "T/T" | is.na(rs4722551)~ 0)) %>%
+  mutate(rs2072183_C = case_when(rs2072183 == "C/C" ~ 2,
+                                 rs2072183 == "C/G" | rs2072183 == "G/C" ~ 1,
+                                 rs2072183 == "G/G" | is.na(rs2072183) ~ 0)) %>%
+  mutate(rs3757354_C = case_when(rs3757354 == "C/C" | is.na(rs3757354) ~ 2,
+                                 rs3757354 == "C/T" | rs3757354 == "T/C" ~ 1,
+                                 rs3757354 == "T/T" ~ 0)) %>%
+  mutate(rs17404153_G = case_when(rs17404153 == "G/G" | is.na(rs17404153) ~ 2,
+                                  rs17404153 == "G/T" | rs17404153 == "T/G" ~ 1,
+                                  rs17404153 == "T/T" ~ 0)) %>%
+  mutate(rs12670798_C = case_when(rs12670798 == "C/C" ~ 2,
+                                  rs12670798 == "C/T" | rs12670798 == "T/C" ~ 1,
+                                  rs12670798 == "T/T" | is.na(rs12670798) ~ 0)) %>%
+  mutate(rs12670798_C = case_when(rs12670798 == "C/C" ~ 2,
+                                  rs12670798 == "C/T" | rs12670798 == "T/C" ~ 1,
+                                  rs12670798 == "T/T" | is.na(rs12670798) ~ 0)) %>%
+  mutate(rs267733_A = case_when(rs267733 == "A/A" | is.na(rs267733) ~ 2,
+                                rs267733 == "A/G" | rs267733 == "G/A" ~ 1,
+                                rs267733 == "G/G" ~ 0)) %>%
+  mutate(rs9488822_T = case_when(rs9488822 == "T/T" ~ 2,
+                                 rs9488822 == "A/T" | rs9488822 == "T/A" | is.na(rs9488822) ~ 1,
+                                 rs9488822 == "A/A" ~ 0)) %>%
+  mutate(rs7206971_A = case_when(rs7206971 == "A/A" ~ 2,
+                                 rs7206971 == "A/G" | rs7206971 == "G/A" | is.na(rs7206971) ~ 1,
+                                 rs7206971 == "G/G" ~ 0)) %>%
+  mutate(rs4530754_A = case_when(rs4530754 == "A/A" ~ 2,
+                                 rs4530754 == "A/G" | rs4530754 == "G/A" | is.na(rs4530754) ~ 1,
+                                 rs4530754 == "G/G" ~ 0)) %>%
+  mutate(rs11065987_A = case_when(rs11065987 == "A/A" ~ 2,
+                                  rs11065987 == "A/G" | rs11065987 == "G/A" | is.na(rs11065987) ~ 1,
+                                  rs11065987 == "G/G" ~ 0)) %>%
+  mutate(rs364585_G = case_when(rs364585 == "G/G" ~ 2,
+                                rs364585 == "A/G" | rs364585 == "G/A" | is.na(rs364585) ~ 1,
+                                rs364585 == "A/A" ~ 0)) %>%
+  mutate(rs1250229_C = case_when(rs1250229 == "C/C" | is.na(rs1250229) ~ 2,
+                                 rs1250229 == "C/T" | rs1250229 == "T/C" ~ 1,
+                                 rs1250229 == "T/T" ~ 0)) %>%
+  mutate(rs4942486_T = case_when(rs4942486 == "C/C" ~ 2,
+                                 rs4942486 == "C/T" | rs4942486 == "T/C" | is.na(rs4942486) ~ 1,
+                                 rs4942486 == "T/T" ~ 0)) %>%
+  mutate(ldlc_rawPRS28 = (rs6511720_G * 0.221) +
+           (rs629301_T * 0.167) +
+           (rs1367117_A * 0.119) +
+           (rs10401969_T * 0.118) +
+           (rs1801689_C * 0.103) +
+           (rs964184_G * 0.086) +
+           (rs4299376_G * 0.081) +
+           (rs5763662_T * 0.077) +
+           (rs12916_C * 0.073) +
+           (rs9987289_G * 0.071) +
+           (rs2000999_A * 0.065) +
+           (rs2479409_G * 0.064) +
+           (rs3764261_C * 0.053) +
+           (rs1564348_C * 0.048) +
+           (rs6882076_C * 0.046) +
+           (rs4722551_C * 0.039) +
+           (rs2072183_C * 0.039) +
+           (rs3757354_C * 0.038) +
+           (rs17404153_G * 0.034) +
+           (rs12670798_C * 0.034) +
+           (rs267733_A * 0.033) +
+           (rs9488822_T * 0.031) +
+           (rs7206971_A * 0.029) +
+           (rs4530754_A * 0.028) +
+           (rs11065987_A * 0.027) +
+           (rs364585_G * 0.025) +
+           (rs1250229_C * 0.024) +
+           (rs4942486_T * 0.024)) 
+
+variant.wide$Indiv <- gsub("\\_.*","", variant.wide$Indiv)
+
+k1g_ancestry <- fread('/Users/nicolevaizman/Desktop/PRS/ldlc_rawPRS28/373507-SampleGenotypes-Homo_sapiens_Variation_Sample.csv') %>%
+  rename(Indiv = 'Sample (Male/Female/Unknown)') 
+
+head(k1g_ancestry)
+
+variant.wide <- variant.wide %>%
+  left_join(k1g_ancestry, by = "Indiv")
+EUR <- variant.wide %>%
+  filter(superpopulation == "EUR")
+AFR <- variant.wide %>%
+  filter(superpopulation == "AFR")
+SAS <- variant.wide %>%
+  filter(superpopulation == "SAS")
+EAS <- variant.wide %>%
+  filter(superpopulation == "EAS")
+
+variant.wide.perc <- variant.wide 
+
+head(variant.wide.perc)
+
+variant.wide.perc$EUR_ldlc_percPRS28 <- round(ecdf(EUR$ldlc_rawPRS28)(variant.wide$ldlc_rawPRS28)*100)
+variant.wide.perc$EAS_ldlc_percPRS28 <- round(ecdf(EAS$ldlc_rawPRS28)(variant.wide$ldlc_rawPRS28)*100)
+variant.wide.perc$SAS_ldlc_percPRS28 <- round(ecdf(SAS$ldlc_rawPRS28)(variant.wide$ldlc_rawPRS28)*100)
+variant.wide.perc$AFR_ldlc_percPRS28 <- round(ecdf(AFR$ldlc_rawPRS28)(variant.wide$ldlc_rawPRS28)*100)
+
+
+BCFH <- variant.wide.perc #%>%
+  #filter(str_detect(Indiv, "^F"))
+head(BCFH)
+
+write.csv(BCFH, "ldlc_28snpPRS_update_240226final.csv", row.names = FALSE)
